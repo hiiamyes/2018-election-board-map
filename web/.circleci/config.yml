@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - master
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn run build
+      # - run: ssh-keyscan $LINODE_IP >> ~/.ssh/known_hosts
+      # - run: ssh yes@$LINODE_IP "rm -rf /srv/hiking-plan/trails/build/"
+      # - run: scp -r build/ yes@$LINODE_IP:/srv/hiking-plan/trails/build/

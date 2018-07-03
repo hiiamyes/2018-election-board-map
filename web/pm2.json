@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "2018-election-board-map",
+      "script": "./index.js",
+      "watch": true,
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
